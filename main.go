@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 //Flags is a structure for app arguments
@@ -34,10 +36,8 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	flags := parseFlags()
-	http.HandleFunc("/", HomeHandler)
+	r := mux.NewRouter()
+	r.HandleFunc("/", HomeHandler).Methods("GET")
 	fmt.Println("Start serving on port", flags.ListenPort)
-	err := http.ListenAndServe(":"+strconv.Itoa(flags.ListenPort), nil)
-	if err != nil {
-		log.Fatal("ListenAndServe:", err)
-	}
+	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(flags.ListenPort), r))
 }
