@@ -29,15 +29,14 @@ func parseFlags() Flags {
 	return f
 }
 
-//HomeHandler handles / requests
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Hello world!")
+func routes() *mux.Router {
+	router := routeRegister("/api/v1")
+	return router
 }
 
 func main() {
 	flags := parseFlags()
-	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHandler).Methods("GET")
+	r := routes()
 	fmt.Println("Start serving on port", flags.ListenPort)
 	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(flags.ListenPort), r))
 }
