@@ -30,7 +30,7 @@ func parseFlags() Flags {
 }
 
 func routes() *mux.Router {
-	router := routeRegister("/api/v1")
+	router := routeRegister(mux.NewRouter(), "/api/v1")
 	return router
 }
 
