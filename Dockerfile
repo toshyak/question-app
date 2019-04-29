@@ -1,5 +1,9 @@
 FROM golang:1.11.5-alpine as builder
 WORKDIR /go/src/github.com/toshyak/question-app/
+ENV GO111MODULE=on
+RUN apk add --no-cache git
+COPY ./go.mod ./go.sum ./
+RUN go mod download
 COPY . /go/src/github.com/toshyak/question-app
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o question-app .
 
