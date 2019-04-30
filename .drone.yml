@@ -12,7 +12,7 @@ steps:
   commands:
   - docker stop question-app
   - docker pull osheychik/question-app
-  - docker run -d --rm -p 23480:8080 -name question-app osheychik/question-app
+  - docker run -d --rm -p 23480:8080 --name question-app osheychik/question-app
   volumes:
   - name: docker
     path: /var/run/docker.sock
