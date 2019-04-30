@@ -1,0 +1,18 @@
+kind: pipeline
+name: default
+
+steps:
+- name: deploy
+  image: docker
+  volumes:
+    - name: docker
+      path: /var/run/docker.sock
+  commands:
+   - docker stop question-app
+   - docker pull osheychik/question-app
+   - docker run -d --rm -p 23480:8080 -name question-app osheychik/question-app
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
