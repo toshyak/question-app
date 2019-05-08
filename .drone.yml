@@ -1,12 +1,20 @@
 ---
 kind: pipeline
-name: default
+name: Build and deploy
 
 platform:
   os: linux
   arch: amd64
 
 steps:
+- name: build docker image
+  image: docker
+  commands:
+  - docker build .
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+
 - name: deploy
   image: docker
   commands:
@@ -16,6 +24,9 @@ steps:
   volumes:
   - name: docker
     path: /var/run/docker.sock
+  when:
+    branch:
+    - master
 
 volumes:
 - name: docker
