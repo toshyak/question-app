@@ -10,7 +10,7 @@ steps:
 - name: build docker image
   image: docker
   commands:
-  - docker build .
+  - docker build -t question-app:latest .
   volumes:
   - name: docker
     path: /var/run/docker.sock
@@ -19,8 +19,7 @@ steps:
   image: docker
   commands:
   - docker stop question-app || true
-  - docker pull osheychik/question-app
-  - docker run -d --rm -p 23480:8080 --name question-app osheychik/question-app
+  - docker run -d --rm -p 23480:8080 --name question-app question-app:latest
   volumes:
   - name: docker
     path: /var/run/docker.sock
