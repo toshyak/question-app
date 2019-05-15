@@ -11,6 +11,7 @@ steps:
   image: docker
   commands:
   - docker build -t question-app:latest .
+  - docker image prune --filter label=stage=intermediate
   volumes:
   - name: docker
     path: /var/run/docker.sock

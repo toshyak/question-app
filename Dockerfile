@@ -1,4 +1,5 @@
 FROM golang:1.11.5-alpine as builder
+LABEL stage=intermediate
 WORKDIR /go/src/github.com/toshyak/question-app/
 ENV GO111MODULE=on
 RUN apk add --no-cache git
